@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 
-// 1. 인터페이스 정의 (수정된 테이블 컬럼에 맞춤)
 interface Article {
   id: number;
   title: string;
@@ -22,9 +21,7 @@ function HomePage() {
 
   useEffect(() => {
     async function fetchArticles() {
-      setLoading(true); // 카테고리 바뀔 때 로딩 표시
-
-      // 2. 쿼리 빌드 방식 수정
+      setLoading(true);
       let query = supabase
         .from("articles")
         .select("*")
@@ -36,91 +33,133 @@ function HomePage() {
       }
 
       const { data, error } = await query;
-
       if (error) {
-        console.error("Error fetching articles:", error);
+        console.error(error);
       } else if (data) {
         setArticles(data as Article[]);
       }
       setLoading(false);
     }
-
     fetchArticles();
   }, [category]);
 
-  if (loading)
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-gray-400">데이터를 가져오는 중...</p>
-      </div>
-    );
-
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-bold text-purple-600 mb-8">Clippi</h1>
+    <div className="min-h-screen bg-gray-50">
+      {/* 헤더 */}
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+          <h1 className="text-xl font-bold text-purple-600">Clippi</h1>
+          <div className="flex gap-2">
+            <button className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition">
+              로그인
+            </button>
+            <button className="text-sm bg-purple-600 text-white px-3 py-1.5 rounded-lg hover:bg-purple-700 transition">
+              시작하기
+            </button>
+          </div>
+        </div>
+      </header>
 
-      {/* 카테고리 탭 */}
-      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setCategory(cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition ${
-              category === cat
-                ? "bg-purple-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      {/* 아티클 카드 목록 */}
-      <div className="flex flex-col gap-4">
-        {articles.length === 0 ? (
-          <p className="text-center text-gray-400 py-10">
-            등록된 기사가 없습니다.
-          </p>
-        ) : (
-          articles.map((article) => (
-            <a
-              key={article.id}
-              href={article.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition flex gap-4 group"
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* 카테고리 탭 */}
+        <div className="flex gap-2 mb-8 overflow-x-auto pb-1 no-scrollbar">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setCategory(cat)}
+              className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition ${
+                category === cat
+                  ? "bg-purple-600 text-white shadow-sm"
+                  : "bg-white text-gray-600 border border-gray-200 hover:border-purple-300 hover:text-purple-600"
+              }`}
             >
-              {article.thumbnail && (
-                <img
-                  src={article.thumbnail}
-                  alt={article.title}
-                  className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
-                  onError={(e) => (e.currentTarget.style.display = "none")}
-                />
-              )}
-              <div className="flex flex-col justify-between flex-1 min-w-0">
-                <div>
-                  <span className="text-xs text-purple-500 font-bold">
-                    {article.source}
-                  </span>
-                  <h2 className="text-base font-semibold text-gray-900 mt-1 line-clamp-2 group-hover:text-purple-600 transition-colors">
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* 카드 그리드 */}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse"
+              >
+                <div className="w-full h-44 bg-gray-200" />
+                <div className="p-4">
+                  <div className="h-3 bg-gray-200 rounded w-1/4 mb-3" />
+                  <div className="h-4 bg-gray-200 rounded w-full mb-2" />
+                  <div className="h-4 bg-gray-200 rounded w-3/4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : articles.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20">
+            <p className="text-gray-400 text-lg">등록된 기사가 없습니다.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {articles.map((article) => (
+              <a // <-- 수정 완료!
+                key={article.id}
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition group"
+              >
+                {/* 썸네일 영역 */}
+                <div className="relative h-44 overflow-hidden bg-gray-100">
+                  {article.thumbnail ? (
+                    <img
+                      src={article.thumbnail}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      onError={(e) => {
+                        e.currentTarget.parentElement!.innerHTML = `<div class="w-full h-full bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center"><span class="text-3xl font-bold text-purple-200">${article.source[0]}</span></div>`;
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center">
+                      <span className="text-3xl font-bold text-purple-200">
+                        {article.source[0]}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* 카드 내용 */}
+                <div className="p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
+                      {article.source}
+                    </span>
+                  </div>
+                  <h2 className="text-base font-bold text-gray-900 line-clamp-2 group-hover:text-purple-600 transition-colors leading-snug h-11">
                     {article.title}
                   </h2>
                   {article.description && (
-                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                    <p className="text-xs text-gray-500 mt-2 line-clamp-2 leading-relaxed h-8">
                       {article.description}
                     </p>
                   )}
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-50">
+                    <span className="text-[11px] text-gray-400">
+                      {article.published_at
+                        ? new Date(article.published_at).toLocaleDateString(
+                            "ko-KR",
+                          )
+                        : "방금 전"}
+                    </span>
+                    <span className="text-[11px] text-purple-500 font-bold opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                      READ MORE →
+                    </span>
+                  </div>
                 </div>
-                <span className="text-xs text-gray-400 mt-2">
-                  {article.published_at
-                    ? new Date(article.published_at).toLocaleDateString("ko-KR")
-                    : "날짜 정보 없음"}
-                </span>
-              </div>
-            </a>
-          ))
+              </a>
+            ))}
+          </div>
         )}
       </div>
     </div>

@@ -19,13 +19,29 @@ const RSS_SOURCES = [
   { url: 'https://d2.naver.com/d2.atom', source: '네이버 D2', category: '개발' },
   { url: 'https://engineering.linecorp.com/ko/feed', source: '라인', category: '개발' },
   // IT뉴스
+  { url: 'https://techneedle.com/feed', source: '테크니들', category: 'IT뉴스' },
   { url: 'https://news.hada.io/rss', source: '긱뉴스', category: 'IT뉴스' },
-  { url: 'https://www.etnews.com/rss/allArticle.xml', source: '전자신문', category: 'IT뉴스' },
   { url: 'https://yozm.wishket.com/magazine/feed/', source: '요즘IT', category: 'IT뉴스' },
   // 비즈니스
   { url: 'https://www.venturesquare.net/feed', source: '벤처스퀘어', category: '비즈니스' },
   { url: 'https://platum.kr/feed', source: 'Platum', category: '비즈니스' },
 ]
+
+// og:image 파싱 함수
+async function fetchOgImage(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0' },
+      signal: AbortSignal.timeout(5000), // 5초 타임아웃
+    })
+    const html = await res.text()
+    const match = html.match(/<meta[^>]+property="og:image"[^>]+content="([^"]+)"|<meta[^>]+content="([^"]+)"[^>]+property="og:image"/)
+    return match?.[1] ?? match?.[2] ?? ''
+  } catch {
+    return ''
+  }
+}
+
 async function parseRSS(url: string) {
   try {
     const res = await fetch(url)
@@ -93,10 +109,16 @@ Deno.serve(async (req) => {
     const items = await parseRSS(source.url)
 
     for (const item of items) {
+      // thumbnail 없으면 og:image 긁어오기
+      let thumbnail = item.thumbnail
+      if (!thumbnail && item.url) {
+        thumbnail = await fetchOgImage(item.url)
+      }
+
       const { error } = await supabase
         .from('articles')
         .upsert(
-          { ...item, source: source.source, category: source.category },
+          { ...item, thumbnail, source: source.source, category: source.category },
           { onConflict: 'url' }
         )
 
