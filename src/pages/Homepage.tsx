@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import Header from "../components/Header";
 
 interface Article {
   id: number;
@@ -46,20 +47,7 @@ function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 헤더 */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-purple-600">Clippi</h1>
-          <div className="flex gap-2">
-            <button className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition">
-              로그인
-            </button>
-            <button className="text-sm bg-purple-600 text-white px-3 py-1.5 rounded-lg hover:bg-purple-700 transition">
-              시작하기
-            </button>
-          </div>
-        </div>
-      </header>
-
+      <Header />
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* 카테고리 탭 */}
         <div className="flex gap-2 mb-8 overflow-x-auto pb-1 no-scrollbar">
@@ -67,7 +55,7 @@ function HomePage() {
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition ${
+              className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition cursor-pointer ${
                 category === cat
                   ? "bg-purple-600 text-white shadow-sm"
                   : "bg-white text-gray-600 border border-gray-200 hover:border-purple-300 hover:text-purple-600"
