@@ -8,6 +8,7 @@ function LandingPage() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -29,6 +30,46 @@ function LandingPage() {
       <header className="border-b border-gray-100 sticky top-0 bg-white z-10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold text-purple-600">Clippi</h1>
+          {/* 이미지 모달 */}
+          {selectedImage && (
+            <div
+              className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+              onClick={() => setSelectedImage(null)}
+            >
+              <div
+                className="relative max-w-5xl w-full"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* 닫기 버튼 */}
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute -top-10 right-0 text-white text-sm hover:text-gray-300 transition cursor-pointer"
+                >
+                  닫기 ✕
+                </button>
+                {/* 브라우저 프레임 */}
+                <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+                  <div className="bg-gray-800 px-4 py-3 flex items-center gap-2 border-b border-gray-700">
+                    <div className="flex gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-red-400" />
+                      <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                      <div className="w-3 h-3 rounded-full bg-green-400" />
+                    </div>
+                    <div className="flex-1 mx-3">
+                      <div className="bg-gray-700 rounded-md px-3 py-1 text-xs text-gray-400 text-center">
+                        clippi.com
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    src={selectedImage}
+                    alt="스크린샷 크게 보기"
+                    className="w-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate("/feed")}
@@ -209,7 +250,10 @@ function LandingPage() {
                 <img
                   src="/images/screenshot-dashboard.png"
                   alt="내 북마크 페이지"
-                  className="w-full object-cover"
+                  className="w-full object-cover cursor-zoom-in hover:scale-105 transition-transform duration-300"
+                  onClick={() =>
+                    setSelectedImage("/images/screenshot-dashboard.png")
+                  }
                 />
               </div>
               <p className="text-sm text-center text-gray-500">
@@ -234,7 +278,10 @@ function LandingPage() {
                 <img
                   src="/images/screenshot-bookmark.png"
                   alt="북마크 저장"
-                  className="w-full object-cover"
+                  className="w-full object-cover cursor-zoom-in hover:scale-105 transition-transform duration-300"
+                  onClick={() =>
+                    setSelectedImage("/images/screenshot-bookmark.png")
+                  }
                 />
               </div>
               <p className="text-sm text-center text-gray-500">
@@ -268,7 +315,7 @@ function LandingPage() {
       {/* 푸터 */}
       <footer className="border-t border-gray-100 py-8">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-sm text-gray-400">© 2026 Clippi. Made with</p>
+          <p className="text-sm text-gray-400">© 2026 Clippi. Made by JB</p>
         </div>
       </footer>
 

@@ -205,14 +205,14 @@ function BookmarkModal({
         <div className="flex gap-3 mt-6">
           <button
             onClick={onClose}
-            className="flex-1 py-3 border border-gray-200 text-gray-600 text-sm font-medium rounded-xl hover:bg-gray-50 transition"
+            className="flex-1 py-3 border border-gray-200 text-gray-600 text-sm font-medium rounded-xl hover:bg-gray-50 transition cursor-pointer"
           >
             취소
           </button>
           <button
             onClick={handleSave}
             disabled={loading}
-            className="flex-1 py-3 bg-purple-600 text-white text-sm font-medium rounded-xl hover:bg-purple-700 transition disabled:opacity-50"
+            className="flex-1 py-3 bg-purple-600 text-white text-sm font-medium rounded-xl hover:bg-purple-700 transition disabled:opacity-50 cursor-pointer"
           >
             {loading ? "저장 중..." : "저장"}
           </button>
