@@ -63,14 +63,15 @@ function Header() {
   function handleSaved() {
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
+    // 커스텀 이벤트 발생
+    window.dispatchEvent(new CustomEvent("bookmark-saved"));
   }
-
   return (
     <>
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <h1
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/feed")}
             className="text-xl font-bold text-purple-600 cursor-pointer"
           >
             Clippi
@@ -90,6 +91,12 @@ function Header() {
               >
                 내 북마크
               </button>
+              {/* <button
+                onClick={() => navigate("/")}
+                className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
+              >
+                Clippi 소개
+              </button> */}
 
               {/* 프로필 드롭다운 */}
               <div className="relative" ref={dropdownRef}>

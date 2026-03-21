@@ -50,6 +50,10 @@ function DashboardPage() {
     };
 
     checkUser();
+
+    // 북마크 저장 이벤트 감지
+    window.addEventListener("bookmark-saved", fetchBookmarks);
+    return () => window.removeEventListener("bookmark-saved", fetchBookmarks);
   }, [navigate]);
 
   async function handleDelete(e: React.MouseEvent, id: string) {
