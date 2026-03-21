@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase";
 
 interface BookmarkModalProps {
   onClose: () => void;
+  onSaved?: () => void;
   defaultUrl?: string;
   defaultTitle?: string;
   defaultThumbnail?: string;
@@ -11,6 +12,7 @@ interface BookmarkModalProps {
 
 function BookmarkModal({
   onClose,
+  onSaved,
   defaultUrl = "",
   defaultTitle = "",
   defaultThumbnail = "",
@@ -80,7 +82,18 @@ function BookmarkModal({
     }
 
     setLoading(true);
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (!session) {
+      setError("로그인이 필요해요.");
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.from("bookmarks").insert({
+      user_id: session.user.id,
       url,
       title,
       description,
@@ -88,11 +101,15 @@ function BookmarkModal({
       category: category || "미분류",
     });
 
-    if (error) setError("저장에 실패했어요. 다시 시도해주세요.");
-    else onClose();
+    if (error) {
+      console.error(error);
+      setError("저장에 실패했어요. 다시 시도해주세요.");
+    } else {
+      onSaved?.();
+      onClose();
+    }
     setLoading(false);
   }
-
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
@@ -146,7 +163,7 @@ function BookmarkModal({
                   <button
                     key={cat}
                     onClick={() => setCategory(cat)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium transition ${
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition cursor-pointer ${
                       category === cat
                         ? "bg-purple-600 text-white"
                         : "bg-gray-100 text-gray-600 hover:bg-purple-50 hover:text-purple-600"
