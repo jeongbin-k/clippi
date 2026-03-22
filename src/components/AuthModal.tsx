@@ -140,7 +140,7 @@ function AuthModal({ onClose }: AuthModalProps) {
                 </label>
                 <input
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder="Your Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-purple-400 transition"

@@ -141,7 +141,7 @@ function LandingPage() {
             )}
             <button
               onClick={() => navigate("/feed")}
-              className="text-gray-600 px-8 py-3.5 rounded-xl font-medium border border-gray-200 bg-white hover:border-purple-300 hover:text-purple-600 transition"
+              className="text-gray-600 px-8 py-3.5 rounded-xl font-medium border border-gray-200 bg-white hover:border-purple-300 hover:text-purple-600 transition cursor-pointer"
             >
               뉴스 피드 보기
             </button>
