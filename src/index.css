@@ -14,3 +14,46 @@
 .animate-fade-in {
   animation: fade-in 0.2s ease-out;
 }
+
+/* ClipCharacter */
+@keyframes peek {
+  0%,
+  100% {
+    transform: translateY(8px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes peek-top {
+  0%,
+  100% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes peek-side {
+  0%,
+  100% {
+    transform: translateY(-50%) translateX(8px);
+  }
+  50% {
+    transform: translateY(-50%) translateX(0px);
+  }
+}
+
+.animate-peek {
+  animation: peek 2.5s ease-in-out infinite;
+}
+
+.animate-peek-top {
+  animation: peek-top 2.5s ease-in-out infinite;
+}
+
+.animate-peek-side {
+  animation: peek-side 2.5s ease-in-out infinite;
+}

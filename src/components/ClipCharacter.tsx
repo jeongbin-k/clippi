@@ -1,5 +1,5 @@
 interface ClipCharacterProps {
-  position?: "bottom-right" | "top-left" | "right-middle" | "bottom-center";
+  position?: "bottom-left" | "bottom-right" | "bottom-center";
   size?: number;
   color?: string;
 }
@@ -10,10 +10,8 @@ function ClipCharacter({
   color = "#7c3aed",
 }: ClipCharacterProps) {
   const positionStyles: Record<string, string> = {
+    "bottom-left": "absolute bottom-0 left-6 animate-peek",
     "bottom-right": "absolute bottom-0 right-8 animate-peek",
-    "top-left": "absolute top-0 left-8 animate-peek-top",
-    "right-middle":
-      "absolute right-0 top-1/2 -translate-y-1/2 animate-peek-side",
     "bottom-center": "absolute bottom-0 left-1/2 -translate-x-1/2 animate-peek",
   };
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import AuthModal from "../components/AuthModal";
+import ClipCharacter from "../components/ClipCharacter";
 import type { User } from "@supabase/supabase-js";
 
 function LandingPage() {
@@ -27,7 +28,7 @@ function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* 헤더 */}
-      <header className="border-b border-gray-100 sticky top-0 bg-white z-10">
+      <header className="border-b border-gray-100 sticky top-0 bg-white z-100">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold text-purple-600">Clippi</h1>
           {/* 이미지 모달 */}
@@ -97,45 +98,54 @@ function LandingPage() {
       </header>
 
       {/* 히어로 섹션 */}
-      <section className="max-w-4xl mx-auto px-4 py-24 text-center">
-        <span className="inline-block bg-purple-50 text-purple-600 text-xs font-medium px-3 py-1 rounded-full mb-6">
-          무료로 시작하세요
-        </span>
-        <h2 className="text-4xl font-bold text-gray-900 leading-tight mb-6">
-          즐겨찾기는 이제 그만,
-          <br />
-          <span className="text-purple-600">스마트하게 저장하고</span>
-          <br />
-          어디서든 꺼내 쓰세요
-        </h2>
-        <p className="text-lg text-gray-500 mb-10 leading-relaxed">
-          크롬 즐겨찾기에 쌓인 링크들, 찾기 힘드셨죠?
-          <br />
-          Clippi에서 카테고리별로 정리하고 매일 업데이트되는 테크 뉴스도 함께
-          즐기세요.
-        </p>
-        <div className="flex items-center justify-center gap-4">
-          {user ? (
+      <section
+        className="relative overflow-hidden py-24"
+        style={{
+          background:
+            "linear-gradient(135deg, #faf5ff 0%, #ede9fe 50%, #f0fdf4 100%)",
+        }}
+      >
+        <ClipCharacter position="bottom-center" size={64} color="#7c3aed" />
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+          <span className="inline-block bg-white text-purple-600 text-xs font-medium px-3 py-1 rounded-full mb-6 border border-purple-100 shadow-sm">
+            무료로 시작하세요
+          </span>
+          <h2 className="text-4xl font-bold text-gray-900 leading-tight mb-6">
+            즐겨찾기는 이제 그만,
+            <br />
+            <span className="text-purple-600">스마트하게 저장하고</span>
+            <br />
+            어디서든 꺼내 쓰세요
+          </h2>
+          <p className="text-base text-gray-500 mb-10 leading-relaxed">
+            크롬 즐겨찾기에 쌓인 링크들, 찾기 힘드셨죠?
+            <br />
+            Clippi에서 카테고리별로 정리하고 매일 업데이트되는 테크 뉴스도 함께
+            즐기세요.
+          </p>
+          <div className="flex items-center justify-center gap-4">
+            {user ? (
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="bg-purple-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-purple-700 transition shadow-sm cursor-pointer"
+              >
+                내 북마크 보러가기 →
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="bg-purple-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-purple-700 transition shadow-sm cursor-pointer"
+              >
+                무료로 시작하기
+              </button>
+            )}
             <button
-              onClick={() => navigate("/dashboard")}
-              className="bg-purple-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-purple-700 transition shadow-sm cursor-pointer"
+              onClick={() => navigate("/feed")}
+              className="text-gray-600 px-8 py-3.5 rounded-xl font-medium border border-gray-200 bg-white hover:border-purple-300 hover:text-purple-600 transition"
             >
-              내 북마크 보러가기 →
+              뉴스 피드 보기
             </button>
-          ) : (
-            <button
-              onClick={() => setShowAuthModal(true)}
-              className="bg-purple-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-purple-700 transition shadow-sm cursor-pointer"
-            >
-              무료로 시작하기
-            </button>
-          )}
-          <button
-            onClick={() => navigate("/feed")}
-            className="text-gray-600 px-8 py-3.5 rounded-xl font-medium border border-gray-200 hover:border-purple-300 hover:text-purple-600 transition"
-          >
-            뉴스 피드 보기
-          </button>
+          </div>
         </div>
       </section>
 
@@ -177,7 +187,8 @@ function LandingPage() {
       </section>
 
       {/* 주요 기능 */}
-      <section className="py-20">
+      <section className="py-20 relative overflow-hidden">
+        <ClipCharacter position="bottom-left" size={48} color="#6d28d9" />
         <div className="max-w-4xl mx-auto px-4">
           <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
             주요 기능
