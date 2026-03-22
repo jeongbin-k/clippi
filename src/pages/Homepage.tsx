@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
+import FeedbackModal from "../components/FeedBackModal";
 
 interface Article {
   id: number;
@@ -17,6 +18,7 @@ function HomePage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("전체");
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   const categories = ["전체", "개발", "IT뉴스", "비즈니스"];
 
@@ -150,6 +152,17 @@ function HomePage() {
           </div>
         )}
       </div>
+      <button
+        onClick={() => setShowFeedbackModal(true)}
+        className="fixed bottom-6 right-6 w-12 h-12 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 transition hover:scale-110 z-40 flex items-center justify-center text-xl cursor-pointer"
+        title="피드백 보내기"
+      >
+        💬
+      </button>
+
+      {showFeedbackModal && (
+        <FeedbackModal onClose={() => setShowFeedbackModal(false)} />
+      )}
     </div>
   );
 }
