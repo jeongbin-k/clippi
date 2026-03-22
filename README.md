@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# Clippi 🔖
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 스마트 북마크 & 테크 뉴스 매거진
 
-Currently, two official plugins are available:
+🌐 **서비스 URL**: [clippi.vercel.app](https://clippi.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 시작은 불편함이었어요
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+직장을 다니면서 업무상 관리해야 할 사이트, 참고해야 할 문서, 자주 방문하는 링크들이 점점 쌓여갔어요. 처음엔 크롬 즐겨찾기에 저장했지만, 시간이 지날수록 수십 개의 링크가 뒤엉켜 정작 필요할 때 찾기가 너무 힘들었어요. 게다가 다른 컴퓨터에서는 아예 접근조차 안 됐고요.
 
-## Expanding the ESLint configuration
+그래서 직접 만들기로 했어요.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+단순히 링크를 저장하는 것에서 그치지 않고, 카테고리별로 정리하고 어느 기기에서든 꺼내 쓸 수 있는 나만의 스마트 북마크 서비스를요. 컴퓨터를 사용하는 직장인이라면 IT 트렌드에도 관심이 있을 거라는 생각에, 매일 자동으로 국내 주요 기술 블로그와 IT 뉴스를 모아주는 피드 기능도 함께 넣었어요.
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## ✨ 주요 기능
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+- 매일 자동 업데이트되는 한국 테크 뉴스 피드 (개발 / IT뉴스 / 비즈니스)
+- 회원가입 / 로그인 / 이메일 인증
+- URL 붙여넣기만으로 북마크 저장 (og 메타데이터 자동 파싱)
+- 카테고리별 북마크 정리 및 관리
+- Supabase RLS 기반 유저별 데이터 보안
+- cron-job.org 연동 서버리스 자동화
+
+---
+
+## 🛠 Tech Stack
+
+| 분류       | 기술                             |
+| ---------- | -------------------------------- |
+| 프론트엔드 | React, TypeScript, Tailwind CSS  |
+| 백엔드     | Supabase (PostgreSQL, Auth, RLS) |
+| 서버리스   | Supabase Edge Functions (Deno)   |
+| 자동화     | cron-job.org (RSS 크론잡)        |
+| 배포       | Vercel                           |
+
+---
+
+## 🗄 DB 구조
+
+```
+articles     — RSS 피드에서 수집한 아티클 (크론잡으로 매일 업데이트)
+bookmarks    — 유저별 북마크 (RLS로 본인 데이터만 접근 가능)
+auth.users   — Supabase Auth 자동 관리
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+## ⚠️ 라이선스
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+이 프로젝트는 실제 서비스 중인 프로젝트입니다.
+무단 복제 및 상업적 이용을 금지합니다.
