@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
-import FeedbackModal from "../components/FeedBackModal";
+import FeedbackModal from "../components/FeedbackModal";
 
 interface Article {
   id: number;

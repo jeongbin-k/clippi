@@ -10,7 +10,7 @@ function ClipCharacter({
   color = "#7c3aed",
 }: ClipCharacterProps) {
   const positionStyles: Record<string, string> = {
-    "bottom-left": "absolute bottom-0 left-25 animate-peek",
+    "bottom-left": "absolute bottom-0 left-50 animate-peek",
     "bottom-right": "absolute bottom-0 right-8 animate-peek",
     "bottom-center": "absolute bottom-0 left-1/2 -translate-x-1/2 animate-peek",
   };
