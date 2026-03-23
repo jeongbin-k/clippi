@@ -62,7 +62,19 @@ function BookmarkModal({
         },
       );
       const data = await res.json();
-      if (data.title) setTitle(data.title);
+      const blockedTitles = [
+        "Just a moment",
+        "Access denied",
+        "Please wait",
+        "403 Forbidden",
+        "404",
+      ];
+
+      if (data.title && !blockedTitles.some((b) => data.title.includes(b))) {
+        setTitle(data.title);
+      } else {
+        setTitle("");
+      }
       if (data.description) setDescription(data.description);
       if (data.thumbnail) setThumbnail(data.thumbnail);
     } catch {
@@ -110,6 +122,7 @@ function BookmarkModal({
     }
     setLoading(false);
   }
+
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
