@@ -1,8 +1,10 @@
-# Clippi 🔖
+# 🔖 Clippi (클리피)
 
-> 스마트 북마크 & 테크 뉴스 매거진
+개인화 북마크 관리 & 테크 뉴스 자동 수집 플랫폼
+파편화된 업무 레퍼런스를 체계적으로 관리하고, 매일 쏟아지는 테크 트렌드를 한곳에서 소비하기 위해 개발한 Full-stack 프로젝트입니다.
 
 🌐 **서비스 URL**: [https://clippi-seven.vercel.app/](https://clippi-seven.vercel.app/)
+👥 실서비스 운영 중
 
 ---
 
@@ -24,6 +26,7 @@
 - 카테고리별 북마크 정리 및 관리
 - Supabase RLS 기반 유저별 데이터 보안
 - cron-job.org 연동 서버리스 자동화
+- 피드백 / 버그 신고 기능 (EmailJS)
 
 ---
 
@@ -35,6 +38,7 @@
 | 백엔드     | Supabase (PostgreSQL, Auth, RLS) |
 | 서버리스   | Supabase Edge Functions (Deno)   |
 | 자동화     | cron-job.org (RSS 크론잡)        |
+| 이메일     | EmailJS                          |
 | 배포       | Vercel                           |
 
 ---
@@ -51,5 +55,4 @@ auth.users   — Supabase Auth 자동 관리
 
 ## ⚠️ 라이선스
 
-이 프로젝트는 실제 서비스 중인 프로젝트입니다.
-무단 복제 및 상업적 이용을 금지합니다.
+본 프로젝트는 개인 포트폴리오 및 서비스 목적으로 제작되었으며, 코드의 무단 복제 및 상업적 이용을 금합니다.
