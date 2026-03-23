@@ -108,22 +108,29 @@ Deno.serve(async (req) => {
   for (const source of RSS_SOURCES) {
     const items = await parseRSS(source.url)
 
-    for (const item of items) {
-      // thumbnail 없으면 og:image 긁어오기
-      let thumbnail = item.thumbnail
-      if (!thumbnail && item.url) {
-        thumbnail = await fetchOgImage(item.url)
-      }
+    // og:image 병렬 처리
+    const itemsWithThumbnails = await Promise.all(
+      items.map(async (item) => {
+        let thumbnail = item.thumbnail
+        if (!thumbnail && item.url) {
+          thumbnail = await fetchOgImage(item.url)
+        }
+        return { ...item, thumbnail }
+      })
+    )
 
-      const { error } = await supabase
-        .from('articles')
-        .upsert(
-          { ...item, thumbnail, source: source.source, category: source.category },
-          { onConflict: 'url' }
-        )
-
-      if (!error) totalInserted++
-    }
+    // DB 저장도 병렬 처리
+    await Promise.all(
+      itemsWithThumbnails.map(async (item) => {
+        const { error } = await supabase
+          .from('articles')
+          .upsert(
+            { ...item, source: source.source, category: source.category },
+            { onConflict: 'url' }
+          )
+        if (!error) totalInserted++
+      })
+    )
   }
 
   return new Response(

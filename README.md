@@ -2,7 +2,7 @@
 
 > 스마트 북마크 & 테크 뉴스 매거진
 
-🌐 **서비스 URL**: [clippi.vercel.app](https://clippi.vercel.app)
+🌐 **서비스 URL**: [https://clippi-seven.vercel.app/](https://clippi-seven.vercel.app/)
 
 ---
 

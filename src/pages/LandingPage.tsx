@@ -74,21 +74,21 @@ function LandingPage() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate("/feed")}
-              className="text-sm text-gray-500 hover:text-purple-600 transition cursor-pointer"
+              className="text-sm text-gray-500 hover:text-purple-600 transition"
             >
               뉴스 피드
             </button>
             {user ? (
               <button
                 onClick={() => navigate("/dashboard")}
-                className="text-sm bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition cursor-pointer"
+                className="text-sm bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
               >
                 내 북마크 →
               </button>
             ) : (
               <button
                 onClick={() => setShowAuthModal(true)}
-                className="text-sm bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition cursor-pointer"
+                className="text-sm bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
               >
                 시작하기
               </button>
@@ -123,25 +123,25 @@ function LandingPage() {
             Clippi에서 카테고리별로 정리하고 매일 업데이트되는 테크 뉴스도 함께
             즐기세요.
           </p>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             {user ? (
               <button
                 onClick={() => navigate("/dashboard")}
-                className="bg-purple-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-purple-700 transition shadow-sm cursor-pointer"
+                className="w-full sm:w-auto bg-purple-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-purple-700 transition shadow-sm cursor-pointer"
               >
                 내 북마크 보러가기 →
               </button>
             ) : (
               <button
                 onClick={() => setShowAuthModal(true)}
-                className="bg-purple-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-purple-700 transition shadow-sm cursor-pointer"
+                className="w-full sm:w-auto bg-purple-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-purple-700 transition shadow-sm cursor-pointer"
               >
                 무료로 시작하기
               </button>
             )}
             <button
               onClick={() => navigate("/feed")}
-              className="text-gray-600 px-8 py-3.5 rounded-xl font-medium border border-gray-200 bg-white hover:border-purple-300 hover:text-purple-600 transition cursor-pointer"
+              className="w-full sm:w-auto text-gray-600 px-8 py-3.5 rounded-xl font-medium border border-gray-200 bg-white hover:border-purple-300 hover:text-purple-600 transition"
             >
               뉴스 피드 보기
             </button>
