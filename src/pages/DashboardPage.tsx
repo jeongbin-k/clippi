@@ -19,6 +19,7 @@ function DashboardPage() {
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   async function fetchBookmarks() {
     setLoading(true);
@@ -71,10 +72,18 @@ function DashboardPage() {
     }
   }
 
-  const filtered =
+  const filtered = (
     selectedCategory === "전체"
       ? bookmarks
-      : bookmarks.filter((b) => b.category === selectedCategory);
+      : bookmarks.filter((b) => b.category === selectedCategory)
+  ).sort((a, b) => {
+    if (sortOrder === "newest") {
+      return (
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+    }
+    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+  });
 
   if (loading)
     return (
@@ -98,9 +107,22 @@ function DashboardPage() {
               저장된 링크들을 관리하세요.
             </p>
           </div>
-          <span className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-xs font-medium text-gray-500 shadow-sm">
-            총 {bookmarks.length}개
-          </span>
+
+          <div className="flex items-center gap-3">
+            <select
+              value={sortOrder}
+              onChange={(e) =>
+                setSortOrder(e.target.value as "newest" | "oldest")
+              }
+              className="text-xs text-gray-500 border border-gray-200 rounded-lg px-2 py-1.5 bg-white focus:outline-none"
+            >
+              <option value="newest">최신순</option>
+              <option value="oldest">오래된 순</option>
+            </select>
+            <span className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-xs font-medium text-gray-500 shadow-sm">
+              총 {bookmarks.length}개
+            </span>
+          </div>
         </div>
 
         {/* 카테고리 탭 */}
