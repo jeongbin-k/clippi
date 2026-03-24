@@ -4,29 +4,25 @@ import { supabase } from "../lib/supabase";
 interface BookmarkModalProps {
   onClose: () => void;
   onSaved?: () => void;
-  editId: string;
   defaultUrl?: string;
   defaultTitle?: string;
   defaultThumbnail?: string;
   defaultDescription?: string;
-  defaultCategory?: string;
 }
 
 function BookmarkModal({
   onClose,
   onSaved,
-  editId,
   defaultUrl = "",
   defaultTitle = "",
   defaultThumbnail = "",
   defaultDescription = "",
-  defaultCategory = "",
 }: BookmarkModalProps) {
   const [url, setUrl] = useState(defaultUrl);
   const [title, setTitle] = useState(defaultTitle);
   const [description, setDescription] = useState(defaultDescription);
   const [thumbnail, setThumbnail] = useState(defaultThumbnail);
-  const [category, setCategory] = useState(defaultCategory);
+  const [category, setCategory] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
@@ -108,43 +104,21 @@ function BookmarkModal({
       return;
     }
 
-    if (editId) {
-      // 수정 모드
-      const { error } = await supabase
-        .from("bookmarks")
-        .update({
-          title,
-          description,
-          thumbnail,
-          category: category || "미분류",
-        })
-        .eq("id", editId);
+    const { error } = await supabase.from("bookmarks").insert({
+      user_id: session.user.id,
+      url,
+      title,
+      description,
+      thumbnail,
+      category: category || "미분류",
+    });
 
-      if (error) {
-        console.error(error);
-        setError("수정에 실패했어요. 다시 시도해주세요.");
-      } else {
-        onSaved?.();
-        onClose();
-      }
+    if (error) {
+      console.error(error);
+      setError("저장에 실패했어요. 다시 시도해주세요.");
     } else {
-      // 저장 모드
-      const { error } = await supabase.from("bookmarks").insert({
-        user_id: session.user.id,
-        url,
-        title,
-        description,
-        thumbnail,
-        category: category || "미분류",
-      });
-
-      if (error) {
-        console.error(error);
-        setError("저장에 실패했어요. 다시 시도해주세요.");
-      } else {
-        onSaved?.();
-        onClose();
-      }
+      onSaved?.();
+      onClose();
     }
     setLoading(false);
   }
@@ -253,7 +227,7 @@ function BookmarkModal({
             disabled={loading}
             className="flex-1 py-3 bg-purple-600 text-white text-sm font-medium rounded-xl hover:bg-purple-700 transition disabled:opacity-50 cursor-pointer"
           >
-            {loading ? "저장 중..." : editId ? "수정 완료" : "저장"}
+            {loading ? "저장 중..." : "저장"}
           </button>
         </div>
       </div>

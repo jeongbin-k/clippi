@@ -114,7 +114,7 @@ function DashboardPage() {
               onChange={(e) =>
                 setSortOrder(e.target.value as "newest" | "oldest")
               }
-              className="text-xs text-gray-500 border border-gray-200 rounded-lg px-2 py-1.5 bg-white focus:outline-none"
+              className="text-xs text-gray-500 border border-gray-200 rounded-lg px-2 py-1.5 bg-white focus:outline-none "
             >
               <option value="newest">최신순</option>
               <option value="oldest">오래된 순</option>
