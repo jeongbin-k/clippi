@@ -4,6 +4,7 @@ import { supabase } from "../lib/supabase";
 import AuthModal from "../components/AuthModal";
 import ClipCharacter from "../components/ClipCharacter";
 import type { User } from "@supabase/supabase-js";
+import { motion } from "framer-motion";
 
 function LandingPage() {
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -110,19 +111,29 @@ function LandingPage() {
           <span className="inline-block bg-white text-purple-600 text-xs font-medium px-3 py-1 rounded-full mb-6 border border-purple-100 shadow-sm">
             무료로 시작하세요
           </span>
-          <h2 className="text-4xl font-bold text-gray-900 leading-tight mb-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.3 }}
+            className="text-4xl font-bold text-gray-900 leading-tight mb-6"
+          >
             즐겨찾기는 이제 그만,
             <br />
             <span className="text-purple-600">스마트하게 저장하고</span>
             <br />
             어디서든 꺼내 쓰세요
-          </h2>
-          <p className="text-base text-gray-500 mb-10 leading-relaxed">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.7 }}
+            className="text-base text-gray-500 mb-10 leading-relaxed"
+          >
             크롬 즐겨찾기에 쌓인 링크들, 찾기 힘드셨죠?
             <br />
             Clippi에서 카테고리별로 정리하고 매일 업데이트되는 테크 뉴스도 함께
             즐기세요.
-          </p>
+          </motion.p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             {user ? (
               <button
@@ -188,7 +199,7 @@ function LandingPage() {
 
       {/* 주요 기능 */}
       <section className="py-20 relative overflow-hidden">
-        <ClipCharacter position="bottom-left" size={48} color="#6d28d9" />
+        <ClipCharacter position="bottom-center" size={48} color="#6d28d9" />
         <div className="max-w-4xl mx-auto px-4">
           <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
             주요 기능
