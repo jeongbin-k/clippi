@@ -208,7 +208,7 @@ function AuthModal({ onClose }: AuthModalProps) {
               className="w-full mt-6 py-3.5 bg-purple-600 text-white text-sm font-medium rounded-xl hover:bg-purple-700 transition disabled:opacity-50 cursor-pointer"
             >
               {loading
-                ? "처리 중..."
+                ? "로그인 중..."
                 : mode === "login"
                   ? "로그인"
                   : "회원가입"}
