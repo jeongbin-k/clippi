@@ -142,7 +142,7 @@ function DashboardPage() {
         </div>
 
         {/* 검색 영역 */}
-        <div className="mb-8 max-w-sm">
+        <div className="mb-8 max-w-xs">
           <div className="relative group">
             <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-500 transition-colors">
               <svg
