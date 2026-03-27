@@ -4,38 +4,40 @@ import { supabase } from "../lib/supabase";
 interface BookmarkModalProps {
   onClose: () => void;
   onSaved?: () => void;
+  editId?: string;
   defaultUrl?: string;
   defaultTitle?: string;
   defaultThumbnail?: string;
   defaultDescription?: string;
+  defaultCategory?: string;
 }
 
 function BookmarkModal({
   onClose,
   onSaved,
+  editId,
   defaultUrl = "",
   defaultTitle = "",
   defaultThumbnail = "",
   defaultDescription = "",
+  defaultCategory = "",
 }: BookmarkModalProps) {
   const [url, setUrl] = useState(defaultUrl);
   const [title, setTitle] = useState(defaultTitle);
   const [description, setDescription] = useState(defaultDescription);
   const [thumbnail, setThumbnail] = useState(defaultThumbnail);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(defaultCategory);
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState("");
 
-  // 기존 카테고리 불러오기
   useEffect(() => {
     async function fetchCategories() {
       const { data } = await supabase
         .from("bookmarks")
         .select("category")
         .not("category", "is", null);
-
       if (data) {
         const unique = [...new Set(data.map((d) => d.category))].filter(
           (c) => c !== "미분류",
@@ -46,11 +48,9 @@ function BookmarkModal({
     fetchCategories();
   }, []);
 
-  // URL 입력하면 og 메타데이터 자동 파싱
   async function handleUrlBlur() {
     if (!url || defaultUrl) return;
     if (!url.startsWith("http")) return;
-
     setFetching(true);
     try {
       const res = await fetch(
@@ -69,7 +69,6 @@ function BookmarkModal({
         "403 Forbidden",
         "404",
       ];
-
       if (data.title && !blockedTitles.some((b) => data.title.includes(b))) {
         setTitle(data.title);
       } else {
@@ -92,7 +91,6 @@ function BookmarkModal({
       setError("제목을 입력해주세요.");
       return;
     }
-
     setLoading(true);
 
     const {
@@ -104,21 +102,41 @@ function BookmarkModal({
       return;
     }
 
-    const { error } = await supabase.from("bookmarks").insert({
-      user_id: session.user.id,
-      url,
-      title,
-      description,
-      thumbnail,
-      category: category || "미분류",
-    });
-
-    if (error) {
-      console.error(error);
-      setError("저장에 실패했어요. 다시 시도해주세요.");
+    if (editId) {
+      // 수정 모드
+      const { error } = await supabase
+        .from("bookmarks")
+        .update({
+          title,
+          description,
+          thumbnail,
+          category: category || "미분류",
+        })
+        .eq("id", editId);
+      if (error) {
+        console.error(error);
+        setError("수정에 실패했어요. 다시 시도해주세요.");
+      } else {
+        onSaved?.();
+        onClose();
+      }
     } else {
-      onSaved?.();
-      onClose();
+      // 저장 모드
+      const { error } = await supabase.from("bookmarks").insert({
+        user_id: session.user.id,
+        url,
+        title,
+        description,
+        thumbnail,
+        category: category || "미분류",
+      });
+      if (error) {
+        console.error(error);
+        setError("저장에 실패했어요. 다시 시도해주세요.");
+      } else {
+        onSaved?.();
+        onClose();
+      }
     }
     setLoading(false);
   }
@@ -132,10 +150,11 @@ function BookmarkModal({
         className="bg-white rounded-2xl p-8 w-full max-w-md mx-4 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-lg font-bold text-gray-900 mb-6">🔖 북마크 저장</h2>
+        <h2 className="text-lg font-bold text-gray-900 mb-6">
+          {editId ? "✏️ 북마크 수정" : "🔖 북마크 저장"}
+        </h2>
 
         <div className="flex flex-col gap-4">
-          {/* URL */}
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-medium text-gray-500">URL</label>
             <input
@@ -144,7 +163,7 @@ function BookmarkModal({
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               onBlur={handleUrlBlur}
-              disabled={!!defaultUrl}
+              disabled={!!editId || !!defaultUrl}
               className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-purple-400 transition disabled:bg-gray-50"
             />
             {fetching && (
@@ -152,7 +171,6 @@ function BookmarkModal({
             )}
           </div>
 
-          {/* 제목 */}
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-medium text-gray-500">제목</label>
             <input
@@ -164,12 +182,10 @@ function BookmarkModal({
             />
           </div>
 
-          {/* 카테고리 */}
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-medium text-gray-500">
               카테고리
             </label>
-            {/* 기존 카테고리 선택 */}
             {categories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-2">
                 {categories.map((cat) => (
@@ -196,7 +212,6 @@ function BookmarkModal({
             />
           </div>
 
-          {/* 메모 */}
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-medium text-gray-500">
               메모 <span className="text-gray-300">(선택)</span>
@@ -227,7 +242,7 @@ function BookmarkModal({
             disabled={loading}
             className="flex-1 py-3 bg-purple-600 text-white text-sm font-medium rounded-xl hover:bg-purple-700 transition disabled:opacity-50 cursor-pointer"
           >
-            {loading ? "저장 중..." : "저장"}
+            {loading ? "저장 중..." : editId ? "수정 완료" : "저장"}
           </button>
         </div>
       </div>

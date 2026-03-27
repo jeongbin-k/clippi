@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import BookmarkModal from "../components/BookmarkModal";
 
 interface Bookmark {
   id: string;
@@ -20,6 +21,7 @@ function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+  const [editBookmark, setEditBookmark] = useState<Bookmark | null>(null);
 
   async function fetchBookmarks() {
     setLoading(true);
@@ -168,6 +170,30 @@ function DashboardPage() {
                 key={bookmark.id}
                 className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100"
               >
+                {/* 수정 버튼 */}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setEditBookmark(bookmark);
+                  }}
+                  className="absolute top-3 right-12 w-8 h-8 bg-white/90 backdrop-blur shadow-sm hover:bg-purple-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 text-gray-400 hover:text-purple-500 z-20 border border-gray-100 cursor-pointer"
+                  title="수정하기"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                  </svg>
+                </button>
                 {/* 삭제 버튼 (우상단 플로팅) */}
                 <button
                   onClick={(e) => handleDelete(e, bookmark.id)}
@@ -236,6 +262,18 @@ function DashboardPage() {
           </div>
         )}
       </div>
+      {editBookmark && (
+        <BookmarkModal
+          editId={editBookmark.id}
+          defaultUrl={editBookmark.url}
+          defaultTitle={editBookmark.title}
+          defaultDescription={editBookmark.description ?? ""}
+          defaultThumbnail={editBookmark.thumbnail ?? ""}
+          defaultCategory={editBookmark.category}
+          onClose={() => setEditBookmark(null)}
+          onSaved={() => fetchBookmarks()}
+        />
+      )}
     </div>
   );
 }
