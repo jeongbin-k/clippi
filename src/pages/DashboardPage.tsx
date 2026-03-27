@@ -18,6 +18,7 @@ function DashboardPage() {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("전체");
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
@@ -74,18 +75,31 @@ function DashboardPage() {
     }
   }
 
-  const filtered = (
-    selectedCategory === "전체"
-      ? bookmarks
-      : bookmarks.filter((b) => b.category === selectedCategory)
-  ).sort((a, b) => {
-    if (sortOrder === "newest") {
+  const filtered = bookmarks
+    .filter((b) => {
+      // 1. 카테고리 필터링
+      const matchesCategory =
+        selectedCategory === "전체" || b.category === selectedCategory;
+
+      // 2. 검색어 필터링 (제목, 설명, URL 중 하나라도 포함되면 노출)
+      const searchLower = searchTerm.toLowerCase();
+      const matchesSearch =
+        b.title.toLowerCase().includes(searchLower) ||
+        b.description?.toLowerCase().includes(searchLower) ||
+        b.url.toLowerCase().includes(searchLower);
+
+      return matchesCategory && matchesSearch;
+    })
+    .sort((a, b) => {
+      if (sortOrder === "newest") {
+        return (
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+      }
       return (
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
       );
-    }
-    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-  });
+    });
 
   if (loading)
     return (
@@ -124,6 +138,32 @@ function DashboardPage() {
             <span className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-xs font-medium text-gray-500 shadow-sm">
               총 {bookmarks.length}개
             </span>
+          </div>
+        </div>
+
+        {/* 검색 영역 */}
+        <div className="mb-8 max-w-sm">
+          <div className="relative group">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-500 transition-colors">
+              <svg
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              placeholder="어떤 북마크를 찾으시나요?"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-200 rounded-2xl text-sm shadow-sm focus:outline-none focus:ring-purple-500/10 focus:border-purple-500 transition-all placeholder:text-gray-400"
+            />
           </div>
         </div>
 
