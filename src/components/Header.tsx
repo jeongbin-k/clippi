@@ -97,7 +97,7 @@ function Header() {
 
   return (
     <>
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
+      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           {/* 좌측: 로고 + 데스크탑 네비 */}
           <div className="flex items-center gap-8">
@@ -140,7 +140,7 @@ function Header() {
                   </button>
                   <button
                     onClick={() => navigate("/dashboard")}
-                    className="text-sm text-gray-500 hover:text-purple-600 px-3 py-2 rounded-lg transition cursor-pointer"
+                    className="text-sm text-[#212121] hover:text-purple-600 px-3 py-2 rounded-lg transition cursor-pointer"
                   >
                     내 북마크
                   </button>
@@ -232,7 +232,7 @@ function Header() {
                 </button>
                 <button
                   onClick={() => handleNavigate("/dashboard")}
-                  className="text-left text-sm text-gray-500 hover:text-purple-600 hover:bg-gray-50 px-3 py-3 rounded-lg transition cursor-pointer"
+                  className="text-left text-sm text-[#212121] hover:text-purple-600 hover:bg-gray-50 px-3 py-3 rounded-lg transition cursor-pointer"
                 >
                   내 북마크
                 </button>

@@ -154,10 +154,22 @@ function HomePage() {
       </div>
       <button
         onClick={() => setShowFeedbackModal(true)}
-        className="fixed bottom-6 right-6 w-12 h-12 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 transition hover:scale-110 z-40 flex items-center justify-center text-xl cursor-pointer"
+        className="fixed bottom-6 right-6 w-12 h-12 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 transition hover:scale-110 z-40 flex items-center justify-center cursor-pointer"
         title="피드백 보내기"
       >
-        💬
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <line x1="22" y1="2" x2="11" y2="13" />
+          <polygon points="22 2 15 22 11 13 2 9 22 2" />
+        </svg>
       </button>
 
       {showFeedbackModal && (

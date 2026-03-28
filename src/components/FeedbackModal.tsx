@@ -55,7 +55,6 @@ function FeedbackModal({ onClose }: FeedbackModalProps) {
         {sent ? (
           // 전송 완료 화면
           <div className="text-center py-4">
-            {/* <div className="text-5xl mb-4">💌</div> */}
             <h3 className="text-lg font-bold text-gray-900 mb-2">
               메일을 보냈어요!
             </h3>
@@ -74,7 +73,7 @@ function FeedbackModal({ onClose }: FeedbackModalProps) {
         ) : (
           <>
             <h2 className="text-lg font-bold text-gray-900 mb-2">
-              💬 피드백 보내기
+              피드백 보내기
             </h2>
             <p className="text-sm text-gray-400 mb-6">
               불편한 점이나 버그를 알려주세요. 빠르게 확인할게요!

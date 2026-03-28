@@ -69,7 +69,9 @@ function NoticeModal({ notice, onClose }: Props) {
         </div>
 
         {/* 제목 */}
-        <h2 className="text-xl font-bold text-gray-900 mb-4">{notice.title}</h2>
+        <h2 className="text-base font-semibold text-gray-900 mb-4">
+          {notice.title}
+        </h2>
 
         {/* 구분선 */}
         <div className="h-px bg-gray-100 mb-4" />

@@ -58,12 +58,11 @@ function NoticePage() {
         <div className="flex items-center gap-3 mb-10">
           <button
             onClick={() => navigate(-1)}
-            className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+            className="text-[#212121] cursor-pointer"
           >
             ←
           </button>
-          <span className="text-xl">📢</span>
-          <h1 className="text-2xl font-bold text-gray-900">공지사항</h1>
+          <h1 className="text-[21px] font-semibold text-gray-900">공지사항</h1>
         </div>
 
         {loading ? (
@@ -111,7 +110,7 @@ function NoticePage() {
                         {notice.tag}
                       </span>
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                    <h3 className="text-sm font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">
                       {notice.title}
                     </h3>
                   </button>
