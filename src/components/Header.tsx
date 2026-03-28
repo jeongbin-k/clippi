@@ -26,7 +26,6 @@ function Header() {
       setUser(session?.user ?? null);
     });
 
-    // 드롭다운 외부 클릭 시 닫기
     function handleClickOutside(e: MouseEvent) {
       if (
         dropdownRef.current &&
@@ -63,97 +62,100 @@ function Header() {
   function handleSaved() {
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
-    // 커스텀 이벤트 발생
     window.dispatchEvent(new CustomEvent("bookmark-saved"));
   }
+
+  const navLinks = [
+    { label: "서비스 소개", path: "/" },
+    { label: "뉴스 피드", path: "/feed" },
+    { label: "공지사항", path: "/notice" },
+  ];
+
   return (
     <>
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1
-            onClick={() => navigate("/feed")}
-            className="text-xl font-bold text-purple-600 cursor-pointer"
-          >
-            Clippi
-          </h1>
-
-          {user ? (
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setShowBookmarkModal(true)}
-                className="text-sm bg-purple-600 text-white px-3 py-1.5 rounded-lg hover:bg-purple-700 transition cursor-pointer"
-              >
-                + 북마크 저장
-              </button>
-              <button
-                onClick={() => navigate("/dashboard")}
-                className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
-              >
-                내 북마크
-              </button>
-              {/* <button
-                onClick={() => navigate("/")}
-                className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
-              >
-                Clippi 소개
-              </button> */}
-              <button
-                onClick={() => navigate("/notice")}
-                className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
-              >
-                공지사항
-              </button>
-
-              {/* 프로필 드롭다운 */}
-              <div className="relative" ref={dropdownRef}>
+      <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+          {/* 좌측: 로고 + 네비 */}
+          <div className="flex items-center gap-8">
+            <h1
+              onClick={() => navigate("/")}
+              className="text-xl font-bold text-purple-600 cursor-pointer"
+            >
+              Clippi
+            </h1>
+            <nav className="flex items-center gap-1">
+              {navLinks.map(({ label, path }) => (
                 <button
-                  onClick={() => setShowDropdown(!showDropdown)}
-                  className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center hover:bg-purple-200 transition cursor-pointer"
+                  key={path}
+                  onClick={() => navigate(path)}
+                  className="text-sm text-gray-500 hover:text-purple-600 px-3 py-2 rounded-lg transition-colors cursor-pointer"
                 >
-                  <span className="text-sm font-medium text-purple-600">
-                    {user.email?.[0].toUpperCase()}
-                  </span>
+                  {label}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          {/* 우측: 액션 */}
+          <div className="flex items-center gap-2">
+            {user ? (
+              <>
+                <button
+                  onClick={() => setShowBookmarkModal(true)}
+                  className="text-sm bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition cursor-pointer font-medium"
+                >
+                  + 북마크 저장
+                </button>
+                <button
+                  onClick={() => navigate("/dashboard")}
+                  className="text-sm text-gray-500 hover:text-purple-600 px-3 py-2 rounded-lg transition cursor-pointer"
+                >
+                  내 북마크
                 </button>
 
-                {showDropdown && (
-                  <div className="absolute right-0 top-10 w-48 bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden z-20">
-                    <div className="px-4 py-3 border-b border-gray-50">
-                      <p className="text-xs text-gray-400 truncate">
-                        {user.email}
-                      </p>
+                {/* 프로필 드롭다운 */}
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setShowDropdown(!showDropdown)}
+                    className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center hover:bg-purple-200 transition cursor-pointer ml-1"
+                  >
+                    <span className="text-sm font-medium text-purple-600">
+                      {user.email?.[0].toUpperCase()}
+                    </span>
+                  </button>
+
+                  {showDropdown && (
+                    <div className="absolute right-0 top-10 w-48 bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden z-20">
+                      <div className="px-4 py-3 border-b border-gray-50">
+                        <p className="text-xs text-gray-400 truncate">
+                          {user.email}
+                        </p>
+                      </div>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-3 text-sm text-gray-600 hover:bg-gray-50 transition cursor-pointer"
+                      >
+                        로그아웃
+                      </button>
+                      <button
+                        onClick={handleDeleteAccount}
+                        className="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-50 transition cursor-pointer"
+                      >
+                        회원탈퇴
+                      </button>
                     </div>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-4 py-3 text-sm text-gray-600 hover:bg-gray-50 transition cursor-pointer"
-                    >
-                      로그아웃
-                    </button>
-                    <button
-                      onClick={handleDeleteAccount}
-                      className="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-50 transition cursor-pointer"
-                    >
-                      회원탈퇴
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => navigate("/notice")}
-                className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
-              >
-                공지사항
-              </button>
+                  )}
+                </div>
+              </>
+            ) : (
               <button
                 onClick={() => setShowAuthModal(true)}
-                className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
+                className="text-sm text-gray-500 hover:text-purple-600 px-3 py-2 rounded-lg transition cursor-pointer"
               >
                 로그인
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </header>
 

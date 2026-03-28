@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import AuthModal from "../components/AuthModal";
 import ClipCharacter from "../components/ClipCharacter";
+import Header from "../components/Header";
 import type { User } from "@supabase/supabase-js";
 import { motion } from "framer-motion";
 
@@ -28,75 +29,47 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* 헤더 */}
-      <header className="border-b border-gray-100 sticky top-0 bg-white z-100">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-purple-600">Clippi</h1>
-          {/* 이미지 모달 */}
-          {selectedImage && (
-            <div
-              className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+      <Header />
+      {/* 이미지 모달 */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="relative max-w-5xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 닫기 버튼 */}
+            <button
               onClick={() => setSelectedImage(null)}
+              className="absolute -top-10 right-0 text-white text-sm hover:text-gray-300 transition cursor-pointer"
             >
-              <div
-                className="relative max-w-5xl w-full"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* 닫기 버튼 */}
-                <button
-                  onClick={() => setSelectedImage(null)}
-                  className="absolute -top-10 right-0 text-white text-sm hover:text-gray-300 transition cursor-pointer"
-                >
-                  닫기 ✕
-                </button>
-                {/* 브라우저 프레임 */}
-                <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
-                  <div className="bg-gray-800 px-4 py-3 flex items-center gap-2 border-b border-gray-700">
-                    <div className="flex gap-1.5">
-                      <div className="w-3 h-3 rounded-full bg-red-400" />
-                      <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                      <div className="w-3 h-3 rounded-full bg-green-400" />
-                    </div>
-                    <div className="flex-1 mx-3">
-                      <div className="bg-gray-700 rounded-md px-3 py-1 text-xs text-gray-400 text-center">
-                        clippi.com
-                      </div>
-                    </div>
+              닫기 ✕
+            </button>
+            {/* 브라우저 프레임 */}
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+              <div className="bg-gray-800 px-4 py-3 flex items-center gap-2 border-b border-gray-700">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-400" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                  <div className="w-3 h-3 rounded-full bg-green-400" />
+                </div>
+                <div className="flex-1 mx-3">
+                  <div className="bg-gray-700 rounded-md px-3 py-1 text-xs text-gray-400 text-center">
+                    clippi.com
                   </div>
-                  <img
-                    src={selectedImage}
-                    alt="스크린샷 크게 보기"
-                    className="w-full object-cover"
-                  />
                 </div>
               </div>
+              <img
+                src={selectedImage}
+                alt="스크린샷 크게 보기"
+                className="w-full object-cover"
+              />
             </div>
-          )}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate("/feed")}
-              className="text-sm text-gray-500 hover:text-purple-600 transition"
-            >
-              뉴스 피드
-            </button>
-            {user ? (
-              <button
-                onClick={() => navigate("/dashboard")}
-                className="text-sm bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
-              >
-                내 북마크 →
-              </button>
-            ) : (
-              <button
-                onClick={() => setShowAuthModal(true)}
-                className="text-sm bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
-              >
-                시작하기
-              </button>
-            )}
           </div>
         </div>
-      </header>
+      )}
 
       {/* 히어로 섹션 */}
       <section
