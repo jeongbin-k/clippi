@@ -17,7 +17,9 @@
     "Segoe UI Symbol",
     sans-serif;
 }
-
+html {
+  overflow-y: scroll;
+}
 button {
   cursor: pointer;
 }
