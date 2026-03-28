@@ -43,24 +43,12 @@ function LandingPage() {
             {/* 닫기 버튼 */}
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute -top-10 right-0 text-white text-sm hover:text-gray-300 transition cursor-pointer"
+              className="absolute -top-5 right-0 text-white text-sm hover:text-gray-300 transition cursor-pointer"
             >
               닫기 ✕
             </button>
             {/* 브라우저 프레임 */}
-            <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
-              <div className="bg-gray-800 px-4 py-3 flex items-center gap-2 border-b border-gray-700">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-400" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                  <div className="w-3 h-3 rounded-full bg-green-400" />
-                </div>
-                <div className="flex-1 mx-3">
-                  <div className="bg-gray-700 rounded-md px-3 py-1 text-xs text-gray-400 text-center">
-                    clippi.com
-                  </div>
-                </div>
-              </div>
+            <div>
               <img
                 src={selectedImage}
                 alt="스크린샷 크게 보기"
@@ -229,19 +217,7 @@ function LandingPage() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex flex-col gap-3">
-              <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
-                <div className="bg-gray-100 px-4 py-3 flex items-center gap-2 border-b border-gray-200">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-red-400" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <div className="w-3 h-3 rounded-full bg-green-400" />
-                  </div>
-                  <div className="flex-1 mx-3">
-                    <div className="bg-white rounded-md px-3 py-1 text-xs text-gray-400 text-center">
-                      clippi.com/dashboard
-                    </div>
-                  </div>
-                </div>
+              <div>
                 <img
                   src="/images/screenshot-dashboard.png"
                   alt="내 북마크 페이지"
@@ -257,19 +233,7 @@ function LandingPage() {
             </div>
 
             <div className="flex flex-col gap-3">
-              <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
-                <div className="bg-gray-100 px-4 py-3 flex items-center gap-2 border-b border-gray-200">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-red-400" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <div className="w-3 h-3 rounded-full bg-green-400" />
-                  </div>
-                  <div className="flex-1 mx-3">
-                    <div className="bg-white rounded-md px-3 py-1 text-xs text-gray-400 text-center">
-                      clippi.com/dashboard
-                    </div>
-                  </div>
-                </div>
+              <div>
                 <img
                   src="/images/screenshot-bookmark.png"
                   alt="북마크 저장"
