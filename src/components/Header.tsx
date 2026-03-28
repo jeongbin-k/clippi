@@ -97,6 +97,12 @@ function Header() {
               >
                 Clippi 소개
               </button> */}
+              <button
+                onClick={() => navigate("/notice")}
+                className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
+              >
+                공지사항
+              </button>
 
               {/* 프로필 드롭다운 */}
               <div className="relative" ref={dropdownRef}>
@@ -133,12 +139,20 @@ function Header() {
               </div>
             </div>
           ) : (
-            <button
-              onClick={() => setShowAuthModal(true)}
-              className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
-            >
-              로그인
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate("/notice")}
+                className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
+              >
+                공지사항
+              </button>
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="text-sm text-gray-600 hover:text-purple-600 px-3 py-1.5 rounded-lg transition cursor-pointer"
+              >
+                로그인
+              </button>
+            </div>
           )}
         </div>
       </header>
