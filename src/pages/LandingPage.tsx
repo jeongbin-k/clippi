@@ -39,8 +39,7 @@ function LandingPage() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
-
-  // ✅ 슬라이드 상태 관리
+  // 슬라이드 상태 관리
   const [current, setCurrent] = useState(0);
   const [dir, setDir] = useState(1);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -53,7 +52,7 @@ function LandingPage() {
     timerRef.current = setInterval(() => {
       setDir(1);
       setCurrent((p) => (p + 1) % slides.length);
-    }, 6000); // 6초 간격
+    }, 6000);
   };
 
   useEffect(() => {
@@ -197,7 +196,7 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* 🚀 ── 왜 만들었나요 (Why Clippi) ── */}
+      {/* 왜 만들었나요 (Why Clippi) */}
       <section className="bg-white py-[100px] px-8">
         <div className="max-w-[860px] mx-auto">
           <motion.div
@@ -388,76 +387,52 @@ function LandingPage() {
         </div>
       </section>
 
-      <section style={{ padding: "100px 32px", background: "#fff" }}>
-        <div
-          style={{
-            maxWidth: 640,
-            margin: "0 auto",
-            textAlign: "center",
-            background: "linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%)",
-            borderRadius: 28,
-            padding: "60px 40px",
-            border: "1px solid #ddd6fe",
-          }}
-        >
-          <span style={{ fontSize: 36, marginBottom: 16, display: "block" }}>
-            🔖
-          </span>
-          <h2
-            style={{
-              fontSize: 32,
-              fontWeight: 800,
-              color: "#1e1b4b",
-              margin: "0 0 14px",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            지금 바로 시작하세요
-          </h2>
-          <p
-            style={{
-              fontSize: 15,
-              color: "#6b7280",
-              lineHeight: 1.75,
-              margin: "0 0 32px",
-            }}
-          >
-            무료로 가입하고 스마트한 북마크 생활을 시작하세요.
-            <br />
-            별도 설치 없이 웹에서 바로 사용할 수 있어요.
-          </p>
-          <button
-            onClick={() =>
-              user ? navigate("/dashboard") : setShowAuthModal(true)
-            }
-            style={{
-              background: "#7c3aed",
-              color: "#fff",
-              border: "none",
-              padding: "16px 36px",
-              borderRadius: 14,
-              fontSize: 16,
-              fontWeight: 700,
-              cursor: "pointer",
-              transition: "all 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#6d28d9";
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow =
-                "0 12px 32px rgba(124,58,237,0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "#7c3aed";
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            {user ? "내 북마크 보러가기 →" : "무료로 시작하기"}
-          </button>
-          {/* <p style={{ marginTop: 14, fontSize: 12, color: "#a78bfa" }}>
-            신용카드 없음 · 언제든 무료
-          </p> */}
+      <section className="py-24 px-8 bg-white">
+        <div className="max-w-6xl mx-auto relative overflow-hidden bg-[#1e1b4b] rounded-[40px] py-20 px-10 text-center">
+          {/* 배경 장식 원형 (선택 사항) */}
+          <div className="absolute top-0 left-0 w-64 h-64 bg-purple-600/20 blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/20 blur-[100px] translate-x-1/2 translate-y-1/2" />
+
+          <div className="relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-purple-200 text-sm font-medium mb-6 backdrop-blur-md border border-white/10">
+                Ready to Clip?
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight leading-tight">
+                흩어진 링크를 한 곳에,
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+                  당신의 지식을 자산으로.
+                </span>
+              </h2>
+              <p className="text-gray-400 text-lg mb-10 max-w-xl mx-auto font-light">
+                복잡한 북마크바는 이제 안녕. 3초 만에 저장하고,
+                <br className="hidden md:block" />
+                어디서나 꺼내 쓰는 스마트한 경험을 시작하세요.
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button
+                  onClick={() =>
+                    user ? navigate("/dashboard") : setShowAuthModal(true)
+                  }
+                  className="group relative bg-white text-[#1e1b4b] px-10 py-4 rounded-2xl text-lg font-bold transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-white/10"
+                >
+                  {user ? "내 대시보드로 이동" : "지금 무료로 시작하기"}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity" />
+                </button>
+              </div>
+
+              <p className="mt-8 text-gray-500 text-sm flex items-center justify-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                Supabase 기반 보안 저장 · 내 북마크는 나만 볼 수 있어요.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 
