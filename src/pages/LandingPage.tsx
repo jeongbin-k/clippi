@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import AuthModal from "../components/AuthModal";
-import ClipCharacter from "../components/ClipCharacter";
+// import ClipCharacter from "../components/ClipCharacter";
 import Header from "../components/Header";
 import type { User } from "@supabase/supabase-js";
 import { motion, AnimatePresence } from "framer-motion";
@@ -243,10 +243,10 @@ function LandingPage() {
             </div>
           </div>
         </div>
-
+        {/* 
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-20 pointer-events-none">
           <ClipCharacter size={100} color="#7c3aed" />
-        </div>
+        </div> */}
       </section>
 
       {/* 왜 만들었나요 (Why Clippi) */}
