@@ -95,15 +95,68 @@ function LandingPage() {
   return (
     <div className="min-h-screen bg-white font-sans overflow-x-hidden">
       <Header />
-
-      {/* 🚀 히어로 슬라이드 섹션 (초기 스타일 정렬 반영) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{ y: [0, -24, 0], x: [0, 12, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[10%] left-[5%] w-72 h-72 bg-purple-300/30 rounded-full blur-[80px]"
+        />
+        <motion.div
+          animate={{ y: [0, 20, 0], x: [0, -16, 0] }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+          className="absolute bottom-[15%] right-[8%] w-80 h-80 bg-blue-300/20 rounded-full blur-[100px]"
+        />
+        <motion.div
+          animate={{ y: [0, -16, 0] }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          className="absolute top-[40%] right-[20%] w-48 h-48 bg-violet-400/20 rounded-full blur-[60px]"
+        />
+      </div>
       <section
         className="relative min-h-[92vh] flex items-center pt-20 pb-12 transition-colors duration-1000"
         style={{ background: slide.bg }}
       >
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -24, 0], x: [0, 12, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[10%] left-[5%] w-72 h-72 bg-purple-300/30 rounded-full blur-[80px]"
+          />
+          <motion.div
+            animate={{ y: [0, 20, 0], x: [0, -16, 0] }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+            className="absolute bottom-[15%] right-[8%] w-80 h-80 bg-blue-300/20 rounded-full blur-[100px]"
+          />
+          <motion.div
+            animate={{ y: [0, -16, 0] }}
+            transition={{
+              duration: 7,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+            className="absolute top-[40%] right-[20%] w-48 h-48 bg-violet-400/20 rounded-full blur-[60px]"
+          />
+        </div>
+
         <div className="max-w-6xl mx-auto px-6 w-full flex flex-col md:flex-row gap-16 items-center">
           {/* 좌측: 스크린샷 이미지 애니메이션 */}
-          <div className="flex-[1.3] relative order-2 md:order-1 flex justify-center">
+          <div className="flex-[1.7] relative order-2 md:order-1 flex justify-center">
             <AnimatePresence mode="wait" custom={dir}>
               <motion.div
                 key={current}
@@ -112,7 +165,7 @@ function LandingPage() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: dir > 0 ? 40 : -40, scale: 0.95 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full max-w-[500px]"
+                className="w-full max-w-[640px]"
               >
                 <img
                   src={slide.image}
@@ -209,7 +262,7 @@ function LandingPage() {
               Why Clippi
             </p>
             <h2 className="text-center text-[36px] font-extrabold text-[#1e1b4b] mb-[14px] tracking-tight">
-              직접 겪어서 직접 만들었어요
+              직접 겪어서 만든 서비스예요
             </h2>
             <p className="text-center text-[#6b7280] text-[16px] leading-[1.8] mb-[56px] break-keep">
               크롬 즐겨찾기에 수십 개 쌓인 링크, 찾을 때마다 스크롤만 했었죠.
@@ -226,7 +279,7 @@ function LandingPage() {
               className="h-full"
             >
               <div className="bg-[#fafafa] rounded-[20px] p-8 border border-[#f3f4f6] h-full flex flex-col">
-                <div className="text-[28px] mb-[12px]">😤</div>
+                {/* <div className="text-[28px] mb-[12px]">😤</div> */}
                 <span className="text-[12px] font-bold text-[#9ca3af] tracking-[0.05em] uppercase">
                   BEFORE
                 </span>
@@ -249,7 +302,7 @@ function LandingPage() {
               className="h-full"
             >
               <div className="bg-[#f5f3ff] rounded-[20px] p-8 border-[1.5px] border-[#ddd6fe] h-full flex flex-col shadow-sm">
-                <div className="text-[28px] mb-[12px]">✨</div>
+                {/* <div className="text-[28px] mb-[12px]">✨</div> */}
                 <span className="text-[12px] font-bold text-[#7c3aed] tracking-[0.05em] uppercase">
                   AFTER — CLIPPI
                 </span>
@@ -320,13 +373,13 @@ function LandingPage() {
                       : "bg-white border-[#ede9fe]"
                   }`}
                 >
-                  <div
+                  {/* <div
                     className={`w-12 h-12 rounded-[14px] flex items-center justify-center text-[22px] mb-[18px] ${
                       f.highlight ? "bg-white/15" : "bg-[#f5f3ff]"
                     }`}
                   >
                     {f.icon}
-                  </div>
+                  </div> */}
                   <h3
                     className={`text-[17px] font-bold mb-[10px] ${
                       f.highlight ? "text-white" : "text-[#1e1b4b]"
