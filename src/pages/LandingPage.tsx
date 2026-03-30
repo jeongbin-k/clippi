@@ -43,7 +43,7 @@ function LandingPage() {
   // ✅ 슬라이드 상태 관리
   const [current, setCurrent] = useState(0);
   const [dir, setDir] = useState(1);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // 자동 슬라이드를 시작하는 함수
   const startTimer = () => {
