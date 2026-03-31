@@ -4,6 +4,7 @@
 파편화된 업무 레퍼런스를 체계적으로 관리하고, 매일 쏟아지는 테크 트렌드를 한곳에서 소비하기 위해 개발한 Full-stack 프로젝트입니다.
 
 🌐 **서비스 URL**: [https://clippi-seven.vercel.app/](https://clippi-seven.vercel.app/)
+🔑 **테스트 계정**: `test@clippi.com` / `password1234` (가입 없이 체험 가능)
 👥 실서비스 운영 중
 
 ---
