@@ -43,6 +43,7 @@ function LandingPage() {
   const [current, setCurrent] = useState(0);
   const [dir, setDir] = useState(1);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // 통계 카운팅
 
   // 자동 슬라이드를 시작하는 함수
   const startTimer = () => {
@@ -91,6 +92,110 @@ function LandingPage() {
   };
 
   const slide = slides[current];
+
+  function useCountUp(target: number, duration: number, trigger: boolean) {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+      if (!trigger) return;
+      let start = 0;
+      const steps = 40;
+      const increment = target / steps;
+      const interval = duration / steps;
+      const timer = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+          setCount(target);
+          clearInterval(timer);
+        } else {
+          setCount(Math.floor(start));
+        }
+      }, interval);
+      return () => clearInterval(timer);
+    }, [trigger]);
+
+    return count;
+  }
+
+  function StatItem({
+    num,
+    label,
+    index,
+  }: {
+    num: string;
+    label: string;
+    index: number;
+  }) {
+    const ref = useRef<HTMLDivElement>(null);
+    const [triggered, setTriggered] = useState(false);
+
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => setTriggered(true), index * 150);
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.5 },
+      );
+      if (ref.current) observer.observe(ref.current);
+      return () => observer.disconnect();
+    }, []);
+
+    // "3초" → target=3, suffix="초"
+    // "무료" → 텍스트 타이핑
+    // "∞"   → 숫자 올라가다 ∞ 로 터짐
+    const isSeconds = num === "3초";
+    const isFree = num === "무료";
+    const isInfinity = num === "∞";
+
+    const countedSeconds = useCountUp(3, 1000, isSeconds && triggered);
+    const countedInfinity = useCountUp(100, 1200, isInfinity && triggered);
+
+    const [typedText, setTypedText] = useState("");
+    useEffect(() => {
+      if (!isFree || !triggered) return;
+      const text = "무료";
+      let i = 0;
+      const timer = setInterval(() => {
+        i++;
+        setTypedText(text.slice(0, i));
+        if (i >= text.length) clearInterval(timer);
+      }, 180);
+      return () => clearInterval(timer);
+    }, [triggered]);
+
+    const displayValue = isSeconds
+      ? `${countedSeconds}초`
+      : isFree
+        ? typedText || "\u00A0"
+        : countedInfinity >= 100
+          ? "∞"
+          : countedInfinity;
+
+    return (
+      <motion.div
+        ref={ref}
+        key={index}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.15, duration: 0.6 }}
+      >
+        <p
+          className={`text-[48px] font-extrabold tracking-tighter leading-none mb-3 transition-all duration-300 ${
+            isInfinity && countedInfinity >= 100
+              ? "text-white scale-110"
+              : "text-[#c4b5fd]"
+          }`}
+        >
+          {displayValue}
+        </p>
+        <p className="text-[14px] text-[#a78bfa]">{label}</p>
+      </motion.div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white font-sans overflow-x-hidden">
@@ -414,8 +519,7 @@ function LandingPage() {
           </div>
         </div>
       </section>
-
-      {/* 🚀 통계 배너 (요청하신 스타일 유지) */}
+      {/* 통계 */}
       <section className="bg-[#1e1b4b] py-[70px] px-8">
         <div className="max-w-[860px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
@@ -424,17 +528,7 @@ function LandingPage() {
               { num: "무료", label: "가입 & 사용 비용" },
               { num: "∞", label: "저장 가능한 북마크 수" },
             ].map((s, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-              >
-                <p className="text-[42px] font-extrabold text-[#c4b5fd] mb-2 tracking-tighter">
-                  {s.num}
-                </p>
-                <p className="text-[14px] text-[#a78bfa]">{s.label}</p>
-              </motion.div>
+              <StatItem key={i} num={s.num} label={s.label} index={i} />
             ))}
           </div>
         </div>
