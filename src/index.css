@@ -1,21 +1,16 @@
 @import "tailwindcss";
 
-:root {
-  font-family:
-    "Pretendard Variable",
-    Pretendard,
-    -apple-system,
-    BlinkMacSystemFont,
-    system-ui,
-    Roboto,
-    "Helvetica Neue",
-    "Segoe UI",
-    "Apple SD Gothic Neo",
-    "Malgun Gothic",
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol",
-    sans-serif;
+/* 1. Tailwind 내부 변수를 아예 덮어씌우기 (v4 기준) */
+@theme {
+  --font-sans: "Pretendard Variable", "Pretendard", system-ui, sans-serif;
+}
+@layer base {
+  :root,
+  html,
+  body {
+    font-family:
+      "Pretendard Variable", "Pretendard", system-ui, sans-serif !important;
+  }
 }
 html {
   overflow-y: scroll;
