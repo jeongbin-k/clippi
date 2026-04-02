@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import AuthModal from "../components/AuthModal";
-// import ClipCharacter from "../components/ClipCharacter";
+import WhyClippi from "../components/WhyClippi";
 import Header from "../components/Header";
 import type { User } from "@supabase/supabase-js";
 import { motion, AnimatePresence } from "framer-motion";
@@ -348,82 +348,10 @@ function LandingPage() {
             </div>
           </div>
         </div>
-        {/* 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-20 pointer-events-none">
-          <ClipCharacter size={100} color="#7c3aed" />
-        </div> */}
       </section>
 
       {/* 왜 만들었나요 (Why Clippi) */}
-      <section className="bg-white py-[100px] px-8">
-        <div className="max-w-[860px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-center text-[13px] font-bold text-[#a78bfa] tracking-[0.1em] mb-[12px] uppercase">
-              Why Clippi
-            </p>
-            <h2 className="text-center text-[36px] font-extrabold text-[#1e1b4b] mb-[14px] tracking-tight">
-              직접 겪어서 만든 서비스예요
-            </h2>
-            <p className="text-center text-[#6b7280] text-[16px] leading-[1.8] mb-[56px] break-keep">
-              크롬 즐겨찾기에 수십 개 쌓인 링크, 찾을 때마다 스크롤만 했었죠.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {/* BEFORE 카드 */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              className="h-full"
-            >
-              <div className="bg-[#fafafa] rounded-[20px] p-8 border border-[#f3f4f6] h-full flex flex-col">
-                {/* <div className="text-[28px] mb-[12px]">😤</div> */}
-                <span className="text-[12px] font-bold text-[#9ca3af] tracking-[0.05em] uppercase">
-                  BEFORE
-                </span>
-                <h3 className="text-[18px] font-bold text-[#374151] mt-[8px] mb-[10px]">
-                  즐겨찾기의 한계
-                </h3>
-                <p className="text-[14px] text-[#6b7280] leading-[1.8] m-0">
-                  링크가 쌓일수록 어디 있는지 모르게 됐고, 다른 컴퓨터에서는
-                  아예 볼 수도 없었어요.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* AFTER 카드 */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="h-full"
-            >
-              <div className="bg-[#f5f3ff] rounded-[20px] p-8 border-[1.5px] border-[#ddd6fe] h-full flex flex-col shadow-sm">
-                {/* <div className="text-[28px] mb-[12px]">✨</div> */}
-                <span className="text-[12px] font-bold text-[#7c3aed] tracking-[0.05em] uppercase">
-                  AFTER — CLIPPI
-                </span>
-                <h3 className="text-[18px] font-bold text-[#1e1b4b] mt-[8px] mb-[10px]">
-                  정리된 나만의 공간
-                </h3>
-                <p className="text-[14px] text-[#6b7280] leading-[1.8] m-0">
-                  카테고리로 깔끔하게 정리하고, 어느 기기에서든 로그인 하나로
-                  바로 꺼내 쓸 수 있어요.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
+      <WhyClippi />
       {/* 🚀 ── 주요 기능 ── */}
       <section className="bg-[#faf5ff] py-[100px] px-8">
         <div className="max-w-[1000px] mx-auto">
@@ -536,10 +464,6 @@ function LandingPage() {
 
       <section className="py-24 px-8 bg-white">
         <div className="max-w-6xl mx-auto relative overflow-hidden bg-[#1e1b4b] rounded-[40px] py-20 px-10 text-center">
-          {/* 배경 장식 원형 (선택 사항) */}
-          <div className="absolute top-0 left-0 w-64 h-64 bg-purple-600/20 blur-[100px] -translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/20 blur-[100px] translate-x-1/2 translate-y-1/2" />
-
           <div className="relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
