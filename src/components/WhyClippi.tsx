@@ -173,7 +173,7 @@ export default function WhyClippi() {
         </motion.div>
 
         {/* 행 */}
-        <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-28">
           {rows.map((row, i) => (
             <div
               key={i}

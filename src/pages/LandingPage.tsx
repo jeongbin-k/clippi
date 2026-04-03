@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import AuthModal from "../components/AuthModal";
 import WhyClippi from "../components/WhyClippi";
+import FeaturesSection from "../components/FeaturesSection";
 import Header from "../components/Header";
 import type { User } from "@supabase/supabase-js";
 import { motion, AnimatePresence } from "framer-motion";
@@ -353,100 +354,7 @@ function LandingPage() {
       {/* 왜 만들었나요 (Why Clippi) */}
       <WhyClippi />
       {/* 🚀 ── 주요 기능 ── */}
-      <section className="bg-[#faf5ff] py-[100px] px-8">
-        <div className="max-w-[1000px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-center text-[13px] font-bold text-[#a78bfa] tracking-[0.1em] mb-[12px] uppercase">
-              Features
-            </p>
-            <h2 className="text-center text-[36px] font-extrabold text-[#1e1b4b] mb-[56px] tracking-tight">
-              딱 필요한 것만 담았어요
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {[
-              {
-                icon: "🔖",
-                title: "스마트 북마크",
-                desc: "URL 하나면 끝. 제목과 썸네일이 자동으로 채워지고 카테고리로 깔끔하게 정리돼요.",
-                tags: ["자동 메타데이터", "카테고리 정리"],
-              },
-              {
-                icon: "📰",
-                title: "매일 업데이트 뉴스",
-                desc: "카카오, 토스, 라인 등 국내 주요 기술 블로그를 매일 자동으로 모아드려요.",
-                tags: ["기술 블로그", "매일 자동 수집"],
-                highlight: true,
-              },
-              {
-                icon: "🌐",
-                title: "어디서든 접근",
-                desc: "회사든 집이든, 로그인 하나로 내 북마크를 바로 꺼내 쓸 수 있어요.",
-                tags: ["멀티 디바이스", "클라우드 동기화"],
-              },
-            ].map((f, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
-                className="h-full"
-              >
-                <div
-                  className={`rounded-[20px] p-8 h-full border transition-all duration-300 ${
-                    f.highlight
-                      ? "bg-[#7c3aed] border-transparent shadow-xl shadow-purple-200 scale-105 z-10"
-                      : "bg-white border-[#ede9fe]"
-                  }`}
-                >
-                  {/* <div
-                    className={`w-12 h-12 rounded-[14px] flex items-center justify-center text-[22px] mb-[18px] ${
-                      f.highlight ? "bg-white/15" : "bg-[#f5f3ff]"
-                    }`}
-                  >
-                    {f.icon}
-                  </div> */}
-                  <h3
-                    className={`text-[17px] font-bold mb-[10px] ${
-                      f.highlight ? "text-white" : "text-[#1e1b4b]"
-                    }`}
-                  >
-                    {f.title}
-                  </h3>
-                  <p
-                    className={`text-[14px] leading-[1.75] mb-[18px] ${
-                      f.highlight ? "text-white/75" : "text-[#6b7280]"
-                    }`}
-                  >
-                    {f.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-[6px]">
-                    {f.tags.map((t) => (
-                      <span
-                        key={t}
-                        className={`text-[11px] px-[10px] py-[3px] rounded-[12px] font-medium ${
-                          f.highlight
-                            ? "bg-white/15 text-[#e9d5ff]"
-                            : "bg-[#f5f3ff] text-[#7c3aed]"
-                        }`}
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeaturesSection />
       {/* 통계 */}
       <section className="bg-[#1e1b4b] py-[70px] px-8">
         <div className="max-w-[860px] mx-auto">
