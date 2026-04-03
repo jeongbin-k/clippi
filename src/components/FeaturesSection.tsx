@@ -12,7 +12,7 @@ const PANELS = [
   {
     en: "Smart Bookmark",
     title: "URL 하나면 끝,\n자동으로 채워집니다.",
-    desc: "주소만 붙여넣으면 제목·설명·썸네일이 자동으로 채워지고, 카테고리별로 깔끔하게 정리돼요.",
+    // desc: "주소만 붙여넣으면 제목·설명·썸네일이 자동으로 채워지고, 카테고리별로 깔끔하게 정리돼요.",
     features: [
       {
         name: "URL 자동 미리보기",
@@ -31,7 +31,7 @@ const PANELS = [
   {
     en: "News Feed",
     title: "테크 트렌드,\n놓치지 마세요.",
-    desc: "카카오·토스·라인 등 주요 기술 블로그와 IT 뉴스를 매일 자동으로 모아 한눈에 보여드려요.",
+    // desc: "카카오·토스·라인 등 주요 기술 블로그와 IT 뉴스를 매일 자동으로 모아 한눈에 보여드려요.",
     features: [
       { name: "기술 블로그 피드", sub: "카카오·토스·라인·네이버 등 자동 수집" },
       { name: "매일 자동 업데이트", sub: "별도 설정 없이 최신 글이 쌓여요" },
@@ -41,7 +41,7 @@ const PANELS = [
   {
     en: "Anywhere Access",
     title: "어디서든,\n바로 꺼내 쓰세요.",
-    desc: "회사든 집이든, 로그인 하나로 내 모든 북마크를 즉시 꺼내 쓸 수 있어요.",
+    // desc: "회사든 집이든, 로그인 하나로 내 모든 북마크를 즉시 꺼내 쓸 수 있어요.",
     features: [
       { name: "멀티 디바이스", sub: "PC·모바일 어디서나 동일한 환경" },
       {
@@ -188,14 +188,14 @@ export default function FeaturesSection() {
               </div>
 
               {/* 제목 */}
-              <h3 className="text-[clamp(22px,3vw,28px)] font-extrabold text-[#1e1b4b] tracking-[-0.03em] leading-[1.25] mb-[14px] whitespace-pre-line">
+              <h3 className="text-[clamp(22px,3vw,28px)] font-extrabold text-[#1e1b4b] tracking-[-0.03em] leading-[1.25] mb-[34px] whitespace-pre-line">
                 {PANELS[current].title}
               </h3>
 
               {/* 설명 */}
-              <p className="text-[15px] text-[#6d5f99] leading-[1.75] mb-8 max-w-[460px]">
+              {/* <p className="text-[15px] text-[#6d5f99] leading-[1.75] mb-8 max-w-[460px]">
                 {PANELS[current].desc}
-              </p>
+              </p> */}
 
               {/* 기능 리스트 */}
               <div className="flex flex-col gap-[14px]">
