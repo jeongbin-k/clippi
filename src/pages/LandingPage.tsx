@@ -322,7 +322,7 @@ function LandingPage() {
                     }
                     className="bg-purple-600 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-purple-700 transition shadow-lg cursor-pointer"
                   >
-                    {user ? "내 북마크 보기 →" : "무료로 시작하기"}
+                    {user ? "내 북마크 보기 →" : "시작하기"}
                   </button>
                   <button
                     onClick={() => navigate("/feed")}
