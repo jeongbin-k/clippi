@@ -28,19 +28,21 @@
 - Supabase RLS 기반 유저별 데이터 보안
 - cron-job.org 연동 서버리스 자동화
 - 피드백 / 버그 신고 기능 (EmailJS)
+- PWA 지원 - 홈 화면 설치
 
 ---
 
 ## 🛠 Tech Stack
 
-| 분류       | 기술                             |
-| ---------- | -------------------------------- |
-| 프론트엔드 | React, TypeScript, Tailwind CSS  |
-| 백엔드     | Supabase (PostgreSQL, Auth, RLS) |
-| 서버리스   | Supabase Edge Functions (Deno)   |
-| 자동화     | cron-job.org (RSS 크론잡)        |
-| 이메일     | EmailJS                          |
-| 배포       | Vercel                           |
+| 분류       | 기술                                               |
+| ---------- | -------------------------------------------------- |
+| 프론트엔드 | React, TypeScript, Tailwind CSS                    |
+| 백엔드     | Supabase (PostgreSQL, Auth, RLS)                   |
+| 서버리스   | Supabase Edge Functions (Deno)                     |
+| 자동화     | cron-job.org (RSS 크론잡)                          |
+| 이메일     | EmailJS                                            |
+| PWA        | vite-plugin-pwa (Web App Manifest, Service Worker) |
+| 배포       | Vercel                                             |
 
 ---
 
