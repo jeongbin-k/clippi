@@ -44,7 +44,14 @@ function LandingPage() {
   const [current, setCurrent] = useState(0);
   const [dir, setDir] = useState(1);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  // 통계 카운팅
+
+  // 이미지 프리로드
+  useEffect(() => {
+    slides.forEach((s) => {
+      const img = new Image();
+      img.src = s.image;
+    });
+  }, []);
 
   // 자동 슬라이드를 시작하는 함수
   const startTimer = () => {
@@ -201,33 +208,6 @@ function LandingPage() {
   return (
     <div className="min-h-screen bg-white font-sans overflow-x-hidden">
       <Header />
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -24, 0], x: [0, 12, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] left-[5%] w-72 h-72 bg-purple-300/30 rounded-full blur-[80px]"
-        />
-        <motion.div
-          animate={{ y: [0, 20, 0], x: [0, -16, 0] }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-          className="absolute bottom-[15%] right-[8%] w-80 h-80 bg-blue-300/20 rounded-full blur-[100px]"
-        />
-        <motion.div
-          animate={{ y: [0, -16, 0] }}
-          transition={{
-            duration: 7,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-          className="absolute top-[40%] right-[20%] w-48 h-48 bg-violet-400/20 rounded-full blur-[60px]"
-        />
-      </div>
       <section
         className="relative min-h-[92vh] flex items-center pt-20 pb-12 transition-colors duration-1000"
         style={{ background: slide.bg }}
@@ -262,29 +242,32 @@ function LandingPage() {
 
         <div className="max-w-6xl mx-auto px-6 w-full flex flex-col md:flex-row gap-16 items-center">
           {/* 좌측: 스크린샷 이미지 애니메이션 */}
-          <div className="flex-[1.7] relative order-2 md:order-1 flex justify-center">
-            <AnimatePresence mode="wait" custom={dir}>
+          <div className="flex-[1.8] relative order-2 md:order-1 flex justify-center items-center min-h-[320px] sm:min-h-[400px] md:min-h-[520px] lg:min-h-[600px] w-full">
+            {" "}
+            <AnimatePresence mode="popLayout" custom={dir}>
               <motion.div
                 key={current}
                 custom={dir}
-                initial={{ opacity: 0, x: dir > 0 ? -40 : 40, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: dir > 0 ? 40 : -40, scale: 0.95 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full max-w-[640px]"
+                initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.4, 0, 0.2, 1],
+                }}
+                className="w-full h-full absolute inset-0 flex justify-center items-center p-4"
               >
                 <img
                   src={slide.image}
                   alt={slide.badge}
-                  className="w-full object-cover"
+                  className="w-full max-w-[640px] h-auto max-h-full object-contain"
                 />
               </motion.div>
             </AnimatePresence>
           </div>
-
           {/* 우측: 텍스트 콘텐츠 (초기 폰트 크기 복구) */}
           <div className="flex-1 order-1 md:order-2">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="popLayout" custom={dir}>
               <motion.div
                 key={current + "-text"}
                 initial={{ opacity: 0, y: 20 }}
