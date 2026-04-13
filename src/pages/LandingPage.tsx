@@ -212,34 +212,6 @@ function LandingPage() {
         className="relative min-h-[92vh] flex items-center pt-20 pb-12 transition-colors duration-1000"
         style={{ background: slide.bg }}
       >
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{ y: [0, -24, 0], x: [0, 12, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[10%] left-[5%] w-72 h-72 bg-purple-300/30 rounded-full blur-[80px]"
-          />
-          <motion.div
-            animate={{ y: [0, 20, 0], x: [0, -16, 0] }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
-            }}
-            className="absolute bottom-[15%] right-[8%] w-80 h-80 bg-blue-300/20 rounded-full blur-[100px]"
-          />
-          <motion.div
-            animate={{ y: [0, -16, 0] }}
-            transition={{
-              duration: 7,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-            className="absolute top-[40%] right-[20%] w-48 h-48 bg-violet-400/20 rounded-full blur-[60px]"
-          />
-        </div>
-
         <div className="max-w-6xl mx-auto px-6 w-full flex flex-col md:flex-row gap-16 items-center">
           {/* 좌측: 스크린샷 이미지 애니메이션 */}
           <div className="flex-[1.8] relative order-2 md:order-1 flex justify-center items-center min-h-[320px] sm:min-h-[400px] md:min-h-[520px] lg:min-h-[600px] w-full">
@@ -260,7 +232,7 @@ function LandingPage() {
                 <img
                   src={slide.image}
                   alt={slide.badge}
-                  className="w-full max-w-[640px] h-auto max-h-full object-contain"
+                  className="w-[110%] max-w-none md:max-w-[640px] h-auto object-contain transform md:scale-100 scale-110"
                 />
               </motion.div>
             </AnimatePresence>

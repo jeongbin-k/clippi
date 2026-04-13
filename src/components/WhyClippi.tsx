@@ -164,7 +164,7 @@ export default function WhyClippi() {
           <p className="text-[12px] font-bold text-[#a78bfa] tracking-[0.12em] uppercase mb-3">
             Why Clippi
           </p>
-          <h2 className="text-[34px] font-extrabold text-[#1e1b4b] tracking-tight mb-3">
+          <h2 className="text-[26px] lg:text-[34px] font-extrabold text-[#1e1b4b] tracking-tight mb-3">
             직접 겪어서 만든 서비스예요
           </h2>
           <p className="text-[15px] text-[#6b7280] leading-[1.8]">
