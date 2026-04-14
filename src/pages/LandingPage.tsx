@@ -336,14 +336,14 @@ function LandingPage() {
               <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-purple-200 text-sm font-medium mb-6 backdrop-blur-md border border-white/10">
                 Ready to Clip?
               </span>
-              <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight leading-tight">
+              <h2 className="text-2xl md:text-5xl font-black text-white mb-6 tracking-tight leading-tight">
                 흩어진 링크를 한 곳에,
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
                   당신의 지식을 자산으로.
                 </span>
               </h2>
-              <p className="text-gray-400 text-lg mb-10 max-w-xl mx-auto font-light">
+              <p className="text-gray-400 text-sm md:text-lg mb-10 max-w-xl mx-auto font-light">
                 복잡한 북마크바는 이제 안녕. 3초 만에 저장하고,
                 <br className="hidden md:block" />
                 어디서나 꺼내 쓰는 스마트한 경험을 시작하세요.
@@ -354,14 +354,14 @@ function LandingPage() {
                   onClick={() =>
                     user ? navigate("/dashboard") : setShowAuthModal(true)
                   }
-                  className="group relative bg-white text-[#1e1b4b] px-10 py-4 rounded-2xl text-lg font-bold transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-white/10"
+                  className="group relative bg-white text-[#1e1b4b] px-8 py-3 rounded-xl text-base md:px-10 md:py-4 md:rounded-2xl md:text-lg font-bold transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-white/10"
                 >
                   {user ? "내 대시보드로 이동" : "지금 무료로 시작하기"}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity" />
+                  <div className="absolute inset-0 rounded-xl md:rounded-2xl bg-gradient-to-r from-purple-500 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity" />
                 </button>
               </div>
 
-              <p className="mt-8 text-gray-500 text-sm flex items-center justify-center gap-2">
+              <p className="mt-8 text-gray-500 text-[10px] md:text-sm flex items-center justify-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                 Supabase 기반 보안 저장 · 내 북마크는 나만 볼 수 있어요.
               </p>
