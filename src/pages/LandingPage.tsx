@@ -369,11 +369,6 @@ function LandingPage() {
           </div>
         </div>
       </section>
-
-      <footer className="border-t border-gray-100 py-8 text-center">
-        <p className="text-sm text-gray-400">© 2026 Clippi. Made by JB</p>
-      </footer>
-
       {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
     </div>
   );
